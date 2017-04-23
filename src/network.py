@@ -5,6 +5,8 @@ import numpy as np
 def sigmoid(z):
 	return 1.0/(1.0+exp(-z))
 
+def sigmoid_prime(z):
+	return sigmoid(z)/(1-sigmoid(z))
 
 class Network(object):
 
@@ -13,6 +15,7 @@ class Network(object):
 		self.sizes = sizes
 		self.biases = [np.random.randn(y, 1) for y in sizes[1:]]
 		self.weights = [np.random.randn(y, x) for x, y in zip(sizes[:-1], sizes[1:])]
+		return
 
 	def feedforward(self, a):
 		for b, w in zip(self.biases, self.weights):
@@ -31,8 +34,13 @@ class Network(object):
 			    print "Epoch {0}:{1}/{2}".format(j, self.evaluate(test_data), n_test)
 			else:
 				print "Epoch {0} complete".format(j)
+		return
 
-
+	def update_mini_batch(self, mini_batch, eta):
+		return
+	
+	def backprop(self, x, y):
+		return
 
 if __name__ == '__main__':
 	print 'test network'
