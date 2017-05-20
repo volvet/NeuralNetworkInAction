@@ -1,6 +1,7 @@
 import numpy as np
 import random
-
+import sys
+import mnist_loader
 
 def sigmoid(z):
     return 1.0 / (1.0 + np.exp(-z))
@@ -82,10 +83,5 @@ class Network(object):
 
 
 if __name__ == '__main__':
-    print 'test network'
-    sizes = [2, 3, 1]
-    net = Network(sizes)
-    print "sizes: ", sizes
-    print "biases: ", net.biases
-    print "weights: ", net.weights
-    print "networks: ", zip(net.biases, net.weights)
+    training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
+
