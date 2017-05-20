@@ -8,7 +8,7 @@ def sigmoid(z):
 
 
 def sigmoid_prime(z):
-    return sigmoid(z) / (1 - sigmoid(z))
+    return sigmoid(z) * (1 - sigmoid(z))
 
 
 class Network(object):
@@ -39,7 +39,7 @@ class Network(object):
         return
 
     def update_mini_batch(self, mini_batch, eta):
-        nabla_b = [np.zeors(b.shape) for b in self.biases]
+        nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
         for x, y in mini_batch:
             delta_nabla_b, delta_nabla_w = self.backprop(x, y)
@@ -67,7 +67,7 @@ class Network(object):
         for l in xrange(2, self.num_layers):
             z = zs[-l]
             sp = sigmoid_prime(z)
-            delta = np.dot(self.weights[-l-1].transpose(), delta) * sp
+            delta = np.dot(self.weights[-l+1].transpose(), delta) * sp
             nabla_b[-l] = delta
             nabla_w[-l] = np.dot(delta, activations[-l-1].transpose())
 
@@ -84,4 +84,6 @@ class Network(object):
 
 if __name__ == '__main__':
     training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
+    net = Network([784, 30, 10])
+    net.SGD(training_data, 30, 10, 3.0, test_data=test_data)
 
