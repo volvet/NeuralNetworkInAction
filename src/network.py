@@ -3,6 +3,7 @@ import random
 import sys
 import mnist_loader
 
+
 def sigmoid(z):
     return 1.0 / (1.0 + np.exp(-z))
 
@@ -67,9 +68,9 @@ class Network(object):
         for l in xrange(2, self.num_layers):
             z = zs[-l]
             sp = sigmoid_prime(z)
-            delta = np.dot(self.weights[-l+1].transpose(), delta) * sp
+            delta = np.dot(self.weights[-l + 1].transpose(), delta) * sp
             nabla_b[-l] = delta
-            nabla_w[-l] = np.dot(delta, activations[-l-1].transpose())
+            nabla_w[-l] = np.dot(delta, activations[-l - 1].transpose())
 
         return (nabla_b, nabla_w)
 
@@ -81,9 +82,7 @@ class Network(object):
         return sum(int(x == y) for (x, y) in test_results)
 
 
-
 if __name__ == '__main__':
     training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
     net = Network([784, 30, 10])
     net.SGD(training_data, 100, 10, 0.001, test_data=test_data)
-
